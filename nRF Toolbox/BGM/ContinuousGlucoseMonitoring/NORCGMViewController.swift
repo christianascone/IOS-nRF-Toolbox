@@ -191,6 +191,9 @@ class NORCGMViewController : NORBaseViewController, CBCentralManagerDelegate, CB
 
         bluetoothManager?.connect(aPeripheral, options: connectionOptions as? [String : AnyObject])
     }
+    func centralManagerDidSelectPeripheral(withManager aManager: CBCentralManager, andPeripheral aPeripheral: CBPeripheral, andName name: String) {
+        // Do nothing
+    }
 
     //MARK: - Table View Datasource delegate methods
 

@@ -14,6 +14,7 @@ import CoreBluetooth
     var peripheral  : CBPeripheral
     var RSSI        : Int32
     var isConnected : Bool
+    var realName    : String?
     
     init(withPeripheral aPeripheral: CBPeripheral, andRSSI anRSSI:Int32 = 0, andIsConnected aConnectionStatus: Bool) {
         peripheral = aPeripheral
@@ -23,9 +24,11 @@ import CoreBluetooth
 
     func name()->String{
         let peripheralName = peripheral.name
-        if peripheral.name == nil {
+        if peripheral.name == nil && realName == nil{
             return "No name"
-        }else{
+        } else if realName != nil {
+          return realName!
+        } else{
             return peripheralName!
         }
     }

@@ -118,6 +118,9 @@ class NORUARTViewController: UIViewController, NORBluetoothManagerDelegate, NORS
         self.connectionButton.setTitle("CANCEL", for: UIControlState())
         bluetoothManager!.connectPeripheral(peripheral: aPeripheral)
     }
+    func centralManagerDidSelectPeripheral(withManager aManager: CBCentralManager, andPeripheral aPeripheral: CBPeripheral, andName name: String) {
+        // Do nothing
+    }
     
     //MARK: - BluetoothManagerDelegate
     func peripheralReady() {

@@ -99,6 +99,9 @@ class NORBPMViewController: NORBaseViewController, CBCentralManagerDelegate, CBP
         bluetoothManager?.connect(aPeripheral, options: connectionOptions as? [String : AnyObject])
     }
     
+    func centralManagerDidSelectPeripheral(withManager aManager: CBCentralManager, andPeripheral aPeripheral: CBPeripheral, andName name: String) {
+        // Do nothing
+    }
     //MARK: - CBCentralManagerDelegate
     
     func centralManagerDidUpdateState(_ central: CBCentralManager) {

@@ -294,6 +294,9 @@ class NORHRMViewController: NORBaseViewController, CBCentralManagerDelegate, CBP
         bluetoothManager!.connect(aPeripheral, options: options as? [String : AnyObject])
     }
     
+    func centralManagerDidSelectPeripheral(withManager aManager: CBCentralManager, andPeripheral aPeripheral: CBPeripheral, andName name: String) {
+        // Do nothing
+    }
     
     //MARK: - CPTPlotDataSource
     

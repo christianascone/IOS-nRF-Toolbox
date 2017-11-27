@@ -319,6 +319,10 @@ class NORHTSViewController: NORBaseViewController, CBCentralManagerDelegate, CBP
         bluetoothManager!.connect(aPeripheral, options: options)
     }
     
+    func centralManagerDidSelectPeripheral(withManager aManager: CBCentralManager, andPeripheral aPeripheral: CBPeripheral, andName name: String) {
+        // Do nothing
+    }
+    
     //MARK: - NORHTSViewController implementation
     func updateUnits() {
         temperatureValueFahrenheit = UserDefaults.standard.bool(forKey: "fahrenheit")

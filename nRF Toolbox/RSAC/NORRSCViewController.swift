@@ -241,6 +241,9 @@ class NORRSCViewController: NORBaseViewController, CBCentralManagerDelegate, CBP
             NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
         })
     }
+    func centralManagerDidSelectPeripheral(withManager aManager: CBCentralManager, andPeripheral aPeripheral: CBPeripheral, andName name: String) {
+        // Do nothing
+    }
     
     //MARK: - CBPeripheralDelegate
     

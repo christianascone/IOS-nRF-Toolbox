@@ -106,6 +106,9 @@ class NORCSCViewController: NORBaseViewController, CBCentralManagerDelegate, CBP
         let options = NSDictionary(object: NSNumber(value: true as Bool), forKey: CBConnectPeripheralOptionNotifyOnConnectionKey as NSCopying)
         bluetoothManager!.connect(aPeripheral, options: options as? [String : AnyObject])
     }
+    func centralManagerDidSelectPeripheral(withManager aManager: CBCentralManager, andPeripheral aPeripheral: CBPeripheral, andName name: String) {
+        // Do nothing
+    }
     
     //MARK: - CentralManagerDelegate
     func centralManagerDidUpdateState(_ central: CBCentralManager) {

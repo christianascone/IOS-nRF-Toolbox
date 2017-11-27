@@ -11,4 +11,5 @@ import CoreBluetooth
 
 @objc protocol NORScannerDelegate {
     func centralManagerDidSelectPeripheral(withManager aManager: CBCentralManager, andPeripheral aPeripheral: CBPeripheral)
+    func centralManagerDidSelectPeripheral(withManager aManager: CBCentralManager, andPeripheral aPeripheral: CBPeripheral, andName name: String)
 }

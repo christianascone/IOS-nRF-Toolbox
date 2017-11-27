@@ -79,6 +79,10 @@ class NORDFUViewController: NORBaseViewController, NORScannerDelegate, NORFileTy
         self.updateUploadButtonState()
     }
 
+    func centralManagerDidSelectPeripheral(withManager aManager: CBCentralManager, andPeripheral aPeripheral: CBPeripheral, andName name: String) {
+        // Do nothing
+    }
+    
     //MARK: - NORFileTypeSelectionDelegate
     func onFileTypeSelected(fileType aType: DFUFirmwareType) {
         selectedFirmware = DFUFirmware(urlToBinOrHexFile: selectedFileURL!, urlToDatFile: nil, type: aType)

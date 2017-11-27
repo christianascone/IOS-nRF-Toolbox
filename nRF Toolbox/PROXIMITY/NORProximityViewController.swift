@@ -220,6 +220,9 @@ class NORProximityViewController: NORBaseViewController, CBCentralManagerDelegat
         proximityPeripheral!.delegate = self
         bluetoothManager?.connect(proximityPeripheral!, options: [CBConnectPeripheralOptionNotifyOnNotificationKey : NSNumber(value: true as Bool)])
     }
+    func centralManagerDidSelectPeripheral(withManager aManager: CBCentralManager, andPeripheral aPeripheral: CBPeripheral, andName name: String) {
+        // Do nothing
+    }
     
     //MARK: - CBCentralManagerDelegate
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
