@@ -36,11 +36,16 @@ protocol NORBluetoothManagerDelegate {
     func peripheralNotSupported()
 }
 
+protocol NORBluetoothDataReceiverDelegate {
+    func received(data: String, from: String)
+}
+
 class NORBluetoothManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate {
     
     //MARK: - Delegate Properties
     var delegate : NORBluetoothManagerDelegate?
     var logger   : NORLogger?
+    var receiver : NORBluetoothDataReceiverDelegate?
     
     //MARK: - Class Properties
     fileprivate let MTU = 20
@@ -65,6 +70,13 @@ class NORBluetoothManager: NSObject, CBPeripheralDelegate, CBCentralManagerDeleg
         super.init()
         
         centralManager.delegate = self
+    }
+    
+    /// Getter for CBPeripheral object
+    ///
+    /// - Returns: peripheral object if connected
+    func getPeripheral() -> CBPeripheral? {
+        return bluetoothPeripheral
     }
     
     /**
@@ -142,7 +154,7 @@ class NORBluetoothManager: NSObject, CBPeripheralDelegate, CBCentralManagerDeleg
         // When Write Request (with response) is used, the Long Write may be used. 
         // It will be handled automatically by the iOS, but must be supported on the device side.
         // If your device does support Long Write, change the flag below to true.
-        let longWriteSupported = false
+        let longWriteSupported = true
         
         // The following code will split the text to packets
         let textData = aText.data(using: String.Encoding.utf8)!
@@ -269,6 +281,7 @@ class NORBluetoothManager: NSObject, CBPeripheralDelegate, CBCentralManagerDeleg
         guard error == nil else {
             log(withLevel: .debugLogLevel, andMessage: "[Callback] Central Manager did disconnect peripheral")
             logError(error: error!)
+            delegate?.didDisconnectPeripheral()
             return
         }
         log(withLevel: .debugLogLevel, andMessage: "[Callback] Central Manager did disconnect peripheral successfully")
@@ -408,8 +421,14 @@ class NORBluetoothManager: NSObject, CBPeripheralDelegate, CBCentralManagerDeleg
             log(withLevel: .infoLogLevel, andMessage: "Notification received from: \(characteristic.uuid.uuidString), with value: 0x\(bytesReceived.hexString)")
             if let validUTF8String = String(utf8String: utf8Bytes) {//  NSMutableString(bytes: utf8Bytes, length: len, encoding: String.Encoding.utf8.rawValue) {
                 log(withLevel: .appLogLevel, andMessage: "\"\(validUTF8String)\" received")
+                if let dataReceiver = self.receiver{
+                    dataReceiver.received(data: validUTF8String, from: characteristic.uuid.uuidString)
+                }
             } else {
                 log(withLevel: .appLogLevel, andMessage: "\"0x\(bytesReceived.hexString)\" received")
+                if let dataReceiver = self.receiver{
+                    dataReceiver.received(data: bytesReceived.hexString, from: characteristic.uuid.uuidString)
+                }
             }
         }
     }
